@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Matchup" representedClassName="Matchup" syncable="YES" codeGenerationType="class">
+        <attribute name="championName1" optional="YES" attributeType="String"/>
+        <attribute name="championName2" optional="YES" attributeType="String"/>
+        <attribute name="lane" optional="YES" attributeType="String"/>
+        <relationship name="detailRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MatchupDetail" inverseName="matchupRelation" inverseEntity="MatchupDetail"/>
+    </entity>
+    <entity name="MatchupDetail" representedClassName="MatchupDetail" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="matchDescription" optional="YES" attributeType="String"/>
+        <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="matchupRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Matchup" inverseName="detailRelation" inverseEntity="Matchup"/>
+    </entity>
+</model>
