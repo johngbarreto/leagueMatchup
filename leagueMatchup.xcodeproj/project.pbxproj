@@ -13,6 +13,7 @@
 		9151C3562B9A74BB00C77D5C /* MatchupDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151C3552B9A74BB00C77D5C /* MatchupDetailVC.swift */; };
 		9151C3582B9A79D800C77D5C /* MatchupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151C3572B9A79D800C77D5C /* MatchupDetailView.swift */; };
 		9151C35A2B9A8DC300C77D5C /* MatchupDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151C3592B9A8DC300C77D5C /* MatchupDetailTableViewCell.swift */; };
+		9153B2002BBFC57E006D741C /* iphoneCover.png in Resources */ = {isa = PBXBuildFile; fileRef = 9153B1FF2BBFC57E006D741C /* iphoneCover.png */; };
 		915591DB2B74134D00941C5F /* ChampionTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915591DA2B74134D00941C5F /* ChampionTitleLabel.swift */; };
 		915591DD2B74137000941C5F /* ChampionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915591DC2B74137000941C5F /* ChampionImageView.swift */; };
 		91C57CB32B7FED23005F2DA7 /* MatchupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C57CB22B7FED23005F2DA7 /* MatchupView.swift */; };
@@ -40,6 +41,7 @@
 		9151C3552B9A74BB00C77D5C /* MatchupDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupDetailVC.swift; sourceTree = "<group>"; };
 		9151C3572B9A79D800C77D5C /* MatchupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupDetailView.swift; sourceTree = "<group>"; };
 		9151C3592B9A8DC300C77D5C /* MatchupDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupDetailTableViewCell.swift; sourceTree = "<group>"; };
+		9153B1FF2BBFC57E006D741C /* iphoneCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphoneCover.png; sourceTree = "<group>"; };
 		915591DA2B74134D00941C5F /* ChampionTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionTitleLabel.swift; sourceTree = "<group>"; };
 		915591DC2B74137000941C5F /* ChampionImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionImageView.swift; sourceTree = "<group>"; };
 		91C57CB22B7FED23005F2DA7 /* MatchupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,14 @@
 			path = MatchupDetail;
 			sourceTree = "<group>";
 		};
+		9153B1FE2BBFC4A0006D741C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9153B1FF2BBFC57E006D741C /* iphoneCover.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		915591D92B74133A00941C5F /* Champion */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +161,7 @@
 		91FFADA42B6C4DAE00BF27F2 /* leagueMatchup */ = {
 			isa = PBXGroup;
 			children = (
+				9153B1FE2BBFC4A0006D741C /* Resources */,
 				91FA0F342BA8CD1F004F8DCC /* ListMatchup */,
 				91330D952B91156800216CAE /* Matchup */,
 				91330D942B91154900216CAE /* Home */,
@@ -259,6 +270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9153B2002BBFC57E006D741C /* iphoneCover.png in Resources */,
 				91FFADB22B6C4DAF00BF27F2 /* LaunchScreen.storyboard in Resources */,
 				91FFADAF2B6C4DAF00BF27F2 /* Assets.xcassets in Resources */,
 			);

@@ -10,9 +10,10 @@ import CoreData
 
 protocol MatchupDetailVCDelegate: AnyObject {
     func didTapeSaveDetails()
+    func textFieldDidChange(_ text: String)
 }
 
-class MatchupDetailVC: UIViewController {
+class MatchupDetailVC: UIViewController, UITextFieldDelegate {
     
     private var persistentContainer: NSPersistentContainer
     private var fetchedResultsController: NSFetchedResultsController<MatchupDetail>!
@@ -45,16 +46,13 @@ class MatchupDetailVC: UIViewController {
         
     }
     
-    
-    
-    
     private func deleteMatchupMoment(_ matchupDetail: MatchupDetail) {
         
         persistentContainer.viewContext.delete(matchupDetail)
         do {
             try persistentContainer.viewContext.save()
         } catch {
-            screen?.errorMessageLabel.text = "Unable to delete transaction"
+            screen?.errorMessageLabel.text = "Unable to delete"
         }
         
     }
@@ -69,6 +67,18 @@ class MatchupDetailVC: UIViewController {
         fetchedResultsController.delegate = self
         screen?.configMatchupDetailTableViewProtocols(delegate: self, dataSource: self)
         
+    }
+        
+    override func beginAppearanceTransition(_ isAppearing: Bool, animated: Bool) {
+        super.beginAppearanceTransition(isAppearing, animated: animated)
+        if !isAppearing {
+            UIView.setAnimationsEnabled(false)
+        }
+    }
+
+    override func endAppearanceTransition() {
+        super.endAppearanceTransition()
+        UIView.setAnimationsEnabled(true)
     }
     
     var isFormValid: Bool {
@@ -89,6 +99,19 @@ class MatchupDetailVC: UIViewController {
 }
 
 extension MatchupDetailVC: MatchupDetailVCDelegate {
+    func textFieldDidChange(_ newText: String) {
+        // Check if the length of newText is greater than 4
+        if newText.count > 4 {
+            // If it is, truncate the text to 4 characters
+            let truncatedText = String(newText.prefix(4))
+            screen?.matchupTimer.text = truncatedText
+        } else if newText.count < 4 {
+            // If it's less than 4 characters, do nothing
+            // You can choose to handle this case differently if needed
+        }
+        // Perform any other necessary logic
+    }
+    
     
     func didTapeSaveDetails() {
         guard let desc = screen?.matchupDescription.text, let timer = screen?.matchupTimer.text else {
@@ -132,24 +155,25 @@ extension MatchupDetailVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         let matchupDetail = fetchedResultsController.object(at: indexPath)
-        
-        let timeInt = Int(matchupDetail.time)
-        
-        if "\(timeInt)".count == 4 {
-            let hours = "\(timeInt)".prefix(2)
-            let minutes = "\(timeInt)".suffix(2)
-            
-            let formattedTimeString = "\(hours):\(minutes)"
-            
-            cell.timeLabel.text = formattedTimeString
-        } else {
-            cell.timeLabel.text = "\(timeInt)"
-        }
-        
-        cell.descriptionLabel.text = matchupDetail.matchDescription
+          
+          let timeInt = Int(matchupDetail.time)
+          
+          // Format time string with leading zeros
+          let formattedTime = String(format: "%04d", timeInt)
+          
+          // Extract hours and minutes from formatted time
+          let hours = formattedTime.prefix(2)
+          let minutes = formattedTime.suffix(2)
+          
+          // Create formatted time string with colon separator
+          let formattedTimeString = "\(hours):\(minutes)"
+          
+          cell.timeLabel.text = formattedTimeString
+          cell.descriptionLabel.text = matchupDetail.matchDescription
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
@@ -165,3 +189,5 @@ extension MatchupDetailVC: UITableViewDataSource, UITableViewDelegate {
     
     
 }
+
+

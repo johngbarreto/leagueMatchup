@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class MatchupDetailView: UIView {
     
     weak var delegate: MatchupDetailVCDelegate?
@@ -15,6 +16,7 @@ class MatchupDetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
+        setupUI()
         setupConstraints()
     }
     
@@ -45,7 +47,7 @@ class MatchupDetailView: UIView {
     lazy var matchupTimer: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Time:"
+        textfield.placeholder = "Time: 0548"
         textfield.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textfield.leftViewMode = .always
         textfield.borderStyle = .roundedRect
@@ -98,7 +100,7 @@ class MatchupDetailView: UIView {
         tableView.register(MatchupDetailTableViewCell.self, forCellReuseIdentifier: MatchupDetailTableViewCell.reuseID)
         tableView.backgroundColor = UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1)
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = UIColor.gray // Set the color of the separator bar
+        tableView.separatorColor = UIColor.gray
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         return tableView
     }()

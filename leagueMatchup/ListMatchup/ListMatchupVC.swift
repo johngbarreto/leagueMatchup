@@ -98,7 +98,7 @@ extension ListMatchupVC: UITableViewDataSource, UITableViewDelegate {
         let matchupDetailVC = MatchupDetailVC(persistentContainer: persistentContainer, matchup: matchup)
         
         
-        navigationController?.pushViewController(matchupDetailVC, animated: true)
+        navigationController?.pushViewController(matchupDetailVC, animated: false)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

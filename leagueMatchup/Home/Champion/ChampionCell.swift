@@ -32,16 +32,9 @@ class ChampionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func updateSelectedState() {
-        if isSelected {
-            layer.borderColor = UIColor.red.cgColor
-        } else {
-            layer.borderColor = UIColor.clear.cgColor
-        }
-    }
-    
     private func updateAppearance() {
-        layer.borderWidth = isSelected ? 2.0 : 0.0
+        layer.borderWidth = isSelected ? 1.0 : 0.0
+        layer.cornerRadius = 10
         layer.borderColor = isSelected ? UIColor.systemRed.cgColor : UIColor.clear.cgColor
     }
     

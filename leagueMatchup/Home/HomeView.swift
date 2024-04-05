@@ -61,7 +61,7 @@ class HomeView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
         layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 20
+        layout.minimumLineSpacing = 30
         let itemWidth = (UIScreen.main.bounds.width - 48 - 20) / 4
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         layout.scrollDirection = .vertical

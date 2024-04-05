@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class MatchupView: UIView {
     
     weak var delegate: MatchupViewDelegate?
@@ -74,7 +76,8 @@ class MatchupView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.text = "Matchup"
+        label.textColor = .white
+        label.text = "Select Lane"
         return label
     }()
     

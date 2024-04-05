@@ -48,6 +48,8 @@ class MatchupVC: UIViewController, MatchupViewDelegate {
     
     func setupNavigationBar() {
         navigationItem.title = "Creating"
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.tintColor = UIColor.red;
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         navigationItem.leftBarButtonItem?.tintColor = UIColor.red
         navigationController?.navigationBar.prefersLargeTitles = false
