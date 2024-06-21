@@ -16,12 +16,8 @@ class TabBarVC: UITabBarController {
     
     private func setupTabBar() {
         
-        let sceneDelegate = UIApplication.shared.connectedScenes
-            .first!.delegate as! SceneDelegate
-        let persistentContainer = sceneDelegate.getPersistentContainer()
-        
-        let home = UINavigationController(rootViewController: HomeVC(persistentContainer: persistentContainer))
-        let matchups = UINavigationController(rootViewController: ListMatchupVC(persistentContainer: persistentContainer))
+        let home = UINavigationController(rootViewController: HomeVC())
+        let matchups = UINavigationController(rootViewController: ListMatchupVC())
                 
         setViewControllers([home, matchups], animated: false)
         tabBar.isTranslucent = false

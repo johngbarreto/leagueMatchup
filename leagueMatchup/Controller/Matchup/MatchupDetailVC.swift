@@ -15,7 +15,6 @@ protocol MatchupDetailVCDelegate: AnyObject {
 
 class MatchupDetailVC: UIViewController, UITextFieldDelegate {
     
-    private var persistentContainer: NSPersistentContainer
     private var fetchedResultsController: NSFetchedResultsController<MatchupDetail>!
     private var matchup: Matchup
     
@@ -26,40 +25,41 @@ class MatchupDetailVC: UIViewController, UITextFieldDelegate {
         view = screen
     }
     
-    init(persistentContainer: NSPersistentContainer, matchup: Matchup) {
-        self.persistentContainer = persistentContainer
+    init(matchup: Matchup) {
         self.matchup = matchup
         super.init(nibName: nil, bundle: nil)
-        
-        let request = MatchupDetail.fetchRequest()
-        request.predicate = NSPredicate(format: "matchupRelation = %@", matchup)
-        request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print("error")
-        }
-        
-    }
-    
-    private func deleteMatchupMoment(_ matchupDetail: MatchupDetail) {
-        
-        persistentContainer.viewContext.delete(matchupDetail)
-        do {
-            try persistentContainer.viewContext.save()
-        } catch {
-            screen?.errorMessageLabel.text = "Unable to delete"
-        }
-        
+        setupFetchedResultsController()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func setupFetchedResultsController() {
+          let request = MatchupDetail.fetchRequest()
+          request.predicate = NSPredicate(format: "matchupRelation = %@", matchup)
+          request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
+          fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataManager.shared.context, sectionNameKeyPath: nil, cacheName: nil)
+          fetchedResultsController.delegate = self
+          
+          do {
+              try fetchedResultsController.performFetch()
+          } catch {
+              print(error.localizedDescription)
+          }
+      }
+      
+    
+    private func deleteMatchupMoment(_ matchupDetail: MatchupDetail) {
+        CoreDataManager.shared.context.delete(matchupDetail)
+        do {
+            try CoreDataManager.shared.context.save()
+        } catch {
+            screen?.errorMessageLabel.text = "Unable to delete"
+        }
+    }
+    
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,14 +118,14 @@ extension MatchupDetailVC: MatchupDetailVCDelegate {
             return
         }
         
-        let matchupDetail = MatchupDetail(context: persistentContainer.viewContext)
+        let matchupDetail = MatchupDetail(context: CoreDataManager.shared.context)
         matchupDetail.matchDescription = desc
         matchupDetail.time = Double(timer) ?? 0.0
         matchupDetail.matchupRelation = matchup
         matchupDetail.createdAt = Date()
         
         do {
-            try persistentContainer.viewContext.save()
+            try CoreDataManager.shared.context.save()
             resetForm()
             screen?.tableView.reloadData()
             

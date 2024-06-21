@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class MatchupTableViewCell: UITableViewCell {
     
     static let reuseID = "TableCell"
     

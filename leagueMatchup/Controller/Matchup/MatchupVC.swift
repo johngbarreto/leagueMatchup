@@ -19,19 +19,7 @@ class MatchupVC: UIViewController, MatchupViewDelegate {
     var selectedChampionNames: [String] = []
     var selectedChampionImageURLs: [URL] = []
     var selectedLane: String = ""
-    
-    private var persistentContainer: NSPersistentContainer
-    
     var screen: MatchupView?
-    
-    init(persistentContainer: NSPersistentContainer) {
-        self.persistentContainer = persistentContainer
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func loadView() {
         screen = MatchupView()
@@ -72,18 +60,18 @@ class MatchupVC: UIViewController, MatchupViewDelegate {
         }
     }
     
-    
-    
     func didSaveMatchup() {
+        let context = CoreDataManager.shared.context
+        
         do {
-            let matchup = Matchup(context: persistentContainer.viewContext)
+            let matchup = Matchup(context: context)
             matchup.championName1 = selectedChampionNames.first
             matchup.championName2 = selectedChampionNames.last
             matchup.lane = selectedLane
-            try persistentContainer.viewContext.save()
+            try context.save()
             
             navigationController?.dismiss(animated: true) {
-                let matchupDetailVC = MatchupDetailVC(persistentContainer: self.persistentContainer, matchup: matchup)
+                let matchupDetailVC = MatchupDetailVC(matchup: matchup)
                 
                 self.navigationController?.pushViewController(matchupDetailVC, animated: true)
             }

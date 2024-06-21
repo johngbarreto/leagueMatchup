@@ -8,14 +8,12 @@
 import UIKit
 
 class ChampionCell: UICollectionViewCell {
+    
     static let reuseID = "ChampionCell"
-    
-    
     weak var collectionView: UICollectionView?
     
     let championLabel = ChampionTitleLabel(textAlignment: .center, fontSize: 16)
     let championImg = ChampionImageView(frame: .zero)
-    
     
     override var isSelected: Bool {
         didSet {

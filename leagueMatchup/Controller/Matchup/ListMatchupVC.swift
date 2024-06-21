@@ -28,6 +28,7 @@ class ListMatchupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupFetchedResultsController()
         self.screen?.configTableViewProtocols(delegate: self, dataSource: self)
         
         navigationController?.navigationBar.barTintColor = UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1)
@@ -40,22 +41,9 @@ class ListMatchupVC: UIViewController {
     
     private var fetchedResultsController: NSFetchedResultsController<Matchup>!
     
-    private var persistentContainer: NSPersistentContainer
-    
-    init(persistentContainer: NSPersistentContainer) {
-        self.persistentContainer = persistentContainer
+
+    init() {
         super.init(nibName: nil, bundle: nil)
-        
-        let request = Matchup.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "lane", ascending: true)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print(error.localizedDescription)
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -63,16 +51,29 @@ class ListMatchupVC: UIViewController {
     }
     
     
-    private func deleteMatchup(_ matchupDetail: Matchup) {
-        
-        persistentContainer.viewContext.delete(matchupDetail)
-        do {
-            try persistentContainer.viewContext.save()
-        } catch {
-            print("error delete")
-        }
-        
-    }
+    private func setupFetchedResultsController() {
+         let request = Matchup.fetchRequest()
+         request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataManager.shared.context, sectionNameKeyPath: nil, cacheName: nil)
+         fetchedResultsController.delegate = self
+         
+         do {
+             try fetchedResultsController.performFetch()
+         } catch {
+             print(error.localizedDescription)
+         }
+     }
+     
+    
+       private func deleteMatchup(_ matchupDetail: Matchup) {
+           CoreDataManager.shared.context.delete(matchupDetail)
+           do {
+               try CoreDataManager.shared.context.save()
+           } catch {
+               print("Error deleting matchup: \(error.localizedDescription)")
+           }
+       }
+    
 }
 
 extension ListMatchupVC: NSFetchedResultsControllerDelegate {
@@ -95,14 +96,14 @@ extension ListMatchupVC: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        let matchupDetailVC = MatchupDetailVC(persistentContainer: persistentContainer, matchup: matchup)
+        let matchupDetailVC = MatchupDetailVC(matchup: matchup)
         
         
         navigationController?.pushViewController(matchupDetailVC, animated: false)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.reuseID, for: indexPath) as? TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MatchupTableViewCell.reuseID, for: indexPath) as? MatchupTableViewCell
         
         let matchup = fetchedResultsController.object(at: indexPath)
         

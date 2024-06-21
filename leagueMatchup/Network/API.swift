@@ -11,13 +11,13 @@ class API {
     let cache = NSCache<NSString, UIImage>()
     
     static let shared = API()
-    private let baseURL = "https://ddragon.leagueoflegends.com/cdn/14.3.1/"
+    let baseURL = "https://ddragon.leagueoflegends.com/cdn/14.3.1"
     
     private init() { }
     
     func getAllChampions(completion: @escaping (Result<ChampionResponse, ErrorMessage>) -> Void) {
         
-        let endpoint = baseURL + "data/en_US/champion.json"
+        let endpoint = baseURL + "/data/en_US/champion.json"
         
         guard let url = URL(string: endpoint) else {
             completion(.failure(.championError))

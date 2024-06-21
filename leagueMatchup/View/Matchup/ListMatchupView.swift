@@ -29,7 +29,7 @@ class ListMatchupView: UIView {
         tableView = UITableView()
         tableView.backgroundColor = UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseID)
+        tableView.register(MatchupTableViewCell.self, forCellReuseIdentifier: MatchupTableViewCell.reuseID)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = UIColor.gray // Set the color of the separator bar

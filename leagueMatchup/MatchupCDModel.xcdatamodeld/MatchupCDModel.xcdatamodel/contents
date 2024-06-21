@@ -3,6 +3,7 @@
     <entity name="Matchup" representedClassName="Matchup" syncable="YES" codeGenerationType="class">
         <attribute name="championName1" optional="YES" attributeType="String"/>
         <attribute name="championName2" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lane" optional="YES" attributeType="String"/>
         <relationship name="detailRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MatchupDetail" inverseName="matchupRelation" inverseEntity="MatchupDetail"/>
     </entity>

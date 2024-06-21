@@ -7,14 +7,12 @@
 
 import UIKit
 
-
-
 class MatchupView: UIView {
     
     weak var delegate: MatchupViewDelegate?
+
     
     let imageLoader = ImageLoader()
-    
     var selectedChampioNames: [String] = []
     
     override init(frame: CGRect) {
